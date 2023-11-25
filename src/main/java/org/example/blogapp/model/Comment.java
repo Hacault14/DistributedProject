@@ -1,4 +1,4 @@
-package org.martynas.blogapp.model;
+package org.example.blogapp.model;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;

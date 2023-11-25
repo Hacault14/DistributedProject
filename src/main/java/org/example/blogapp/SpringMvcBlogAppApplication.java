@@ -1,4 +1,4 @@
-package org.martynas.blogapp;
+package org.example.blogapp;
 
 import org.h2.tools.Server;
 import org.springframework.boot.SpringApplication;

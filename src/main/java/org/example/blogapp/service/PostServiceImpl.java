@@ -1,7 +1,7 @@
-package org.martynas.blogapp.service;
+package org.example.blogapp.service;
 
-import org.martynas.blogapp.model.Post;
-import org.martynas.blogapp.repository.PostRepository;
+import org.example.blogapp.model.Post;
+import org.example.blogapp.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

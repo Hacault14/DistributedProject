@@ -1,6 +1,6 @@
-package org.martynas.blogapp.repository;
+package org.example.blogapp.repository;
 
-import org.martynas.blogapp.model.Authority;
+import org.example.blogapp.model.Authority;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

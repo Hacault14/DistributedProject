@@ -1,6 +1,6 @@
-package org.martynas.blogapp.service;
+package org.example.blogapp.service;
 
-import org.martynas.blogapp.model.Post;
+import org.example.blogapp.model.Post;
 
 import java.util.Collection;
 import java.util.Optional;

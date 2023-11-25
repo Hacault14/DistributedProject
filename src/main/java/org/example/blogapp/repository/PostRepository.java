@@ -1,6 +1,6 @@
-package org.martynas.blogapp.repository;
+package org.example.blogapp.repository;
 
-import org.martynas.blogapp.model.Post;
+import org.example.blogapp.model.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

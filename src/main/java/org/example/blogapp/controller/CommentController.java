@@ -1,11 +1,11 @@
-package org.martynas.blogapp.controller;
+package org.example.blogapp.controller;
 
-import org.martynas.blogapp.model.BlogUser;
-import org.martynas.blogapp.model.Comment;
-import org.martynas.blogapp.model.Post;
-import org.martynas.blogapp.service.BlogUserService;
-import org.martynas.blogapp.service.CommentService;
-import org.martynas.blogapp.service.PostService;
+import org.example.blogapp.model.BlogUser;
+import org.example.blogapp.model.Comment;
+import org.example.blogapp.model.Post;
+import org.example.blogapp.service.BlogUserService;
+import org.example.blogapp.service.CommentService;
+import org.example.blogapp.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -37,15 +37,11 @@ public class CommentController {
     @GetMapping("/comment/{id}")
     public String showComment(@PathVariable Long id, Model model, Principal principal) {
 
-        // Just curious  what if we get username from Principal instead of SecurityContext
         String authUsername = "anonymousUser";
         if (principal != null) {
             authUsername = principal.getName();
         }
-        // the end of curiosity //
 
-//        // get username of current logged in session user
-//        String authUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         // find user by username
         Optional<BlogUser> optionalBlogUser = this.blogUserService.findByUsername(authUsername);
         // find post by id

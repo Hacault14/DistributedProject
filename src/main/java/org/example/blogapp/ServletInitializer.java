@@ -1,4 +1,4 @@
-package org.martynas.blogapp;
+package org.example.blogapp;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

@@ -1,7 +1,7 @@
-package org.martynas.blogapp.controller;
+package org.example.blogapp.controller;
 
-import org.martynas.blogapp.model.BlogUser;
-import org.martynas.blogapp.service.BlogUserService;
+import org.example.blogapp.model.BlogUser;
+import org.example.blogapp.service.BlogUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -43,8 +43,6 @@ public class SignupController {
         System.err.println("newUser: " + blogUser);  // for testing debugging purposes
         // Check if username is available
         if (blogUserService.findByUsername(blogUser.getUsername()).isPresent()) {
-//            FieldError usernameTakenError = new FieldError("blogUser","username","Username is already registered try other one or go away");
-//            bindingResult.addError(usernameTakenError);
             bindingResult.rejectValue("username", "error.username","Username is already registered try other one or go away");
             System.err.println("Username already taken error message");
         }

@@ -1,4 +1,4 @@
-package org.martynas.blogapp;
+package org.example.blogapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
