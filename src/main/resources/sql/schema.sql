@@ -1,11 +1,11 @@
-create table authorities
+create table if not exists authorities
 (
     id        bigint       not null,
     authority varchar(255) not null,
     primary key (id),
     constraint UK_q0u5f2cdlshec8tlh6818bhbk unique (authority)
 );
-create table users
+create table if not exists users
 (
     id       bigint       not null,
     password varchar(255) not null,
@@ -14,7 +14,7 @@ create table users
     primary key (id),
     constraint UK_r43af9ap4edm43mmtq01oddj6 unique (username)
 );
-create table posts
+create table if not exists posts
 (
     id            bigint       not null,
     body          TEXT         not null,
@@ -26,7 +26,7 @@ create table posts
         foreign key (user_id)
             references users
 );
-create table comments
+create table if not exists comments
 (
     id            bigint    not null,
     body          TEXT      not null,
@@ -41,7 +41,7 @@ create table comments
         foreign key (user_id)
             references users
 );
-create table users_authorities
+create table if not exists users_authorities
 (
     user_id      bigint not null,
     authority_id bigint not null,
