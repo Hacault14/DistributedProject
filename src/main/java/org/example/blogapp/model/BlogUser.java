@@ -28,7 +28,7 @@ public class BlogUser implements UserDetails {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @JsonIgnore // just in case Jackson tries wants to betray us
+    @JsonIgnore
     @Length(min = MIN_PASSWORD_LENGTH, message = "Password must be at least " + MIN_PASSWORD_LENGTH + " characters long")
     @NotEmpty(message = "Please enter the password")
     @Column(name = "password", nullable = false)
@@ -74,7 +74,6 @@ public class BlogUser implements UserDetails {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-//                ", posts=" + posts +
                 ", authorities=" + authorities +
                 '}';
     }

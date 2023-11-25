@@ -52,10 +52,6 @@ public class Post {
                 ", title='" + title + '\'' +
                 ", body='" + body + '\'' +
                 ", creationDate=" + creationDate +
-//                ", comments=" + comments +
-//                ", comments=" + comments.stream().map(Comment::toString).collect(Collectors.joining(",")) +
-//                ", username=" + user.getUsername() +
-//                ", user=" + user + // this way it is making the inf loop
                 '}';
     }
 }

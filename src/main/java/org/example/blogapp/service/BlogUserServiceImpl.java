@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.stereotype.Service;
 
 import javax.management.relation.RoleNotFoundException;
@@ -39,7 +38,6 @@ public class BlogUserServiceImpl implements BlogUserService {
         } else {
             throw new UsernameNotFoundException("No user found with username " + username);
         }
-//        return blogUser.orElseThrow(() -> new UsernameNotFoundException("No user found with username \" + username"));
     }
 
     @Override
@@ -50,9 +48,7 @@ public class BlogUserServiceImpl implements BlogUserService {
     @Override
     public BlogUser saveNewBlogUser(BlogUser blogUser) throws RoleNotFoundException {
         System.err.println("saveNewBlogUser: " + blogUser);  // for testing debugging purposes
-        // Encode plaintext password with password encoder
-//        blogUser.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(blogUser.getPassword()).substring(8));
-        blogUser.setPassword(this.bcryptEncoder.encode(blogUser.getPassword())); // explicit bcrypt encoder so better approach ?
+        blogUser.setPassword(this.bcryptEncoder.encode(blogUser.getPassword()));
         // set account to enabled by default
         blogUser.setEnabled(true);
         // Set default Authority/Role to new blog user
@@ -63,7 +59,6 @@ public class BlogUserServiceImpl implements BlogUserService {
             Collection<Authority> authorities = Collections.singletonList(authority);
             blogUser.setAuthorities(authorities);
             System.err.println("blogUser after Roles: " + blogUser);  // for testing debugging purposes
-//            return blogUserRepository.save(blogUser);
             return this.blogUserRepository.saveAndFlush(blogUser);
         } else {
             throw new RoleNotFoundException("Default role not found for blog user with username " + blogUser.getUsername());
