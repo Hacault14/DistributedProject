@@ -7,6 +7,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
 
@@ -22,6 +24,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_seq_gen")
     @Column(name = "id")
     private Long id;
+
+    @Column(name = "image_data", columnDefinition = "BLOB")
+    private String imageData;
 
     @Length(min = MIN_TITLE_LENGTH, message = "Title must be at least " + MIN_TITLE_LENGTH + " characters long")
     @NotEmpty(message = "Please enter the title")
@@ -51,6 +56,7 @@ public class Post {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", body='" + body + '\'' +
+                ", image='" + imageData + '\'' +
                 ", creationDate=" + creationDate +
                 '}';
     }

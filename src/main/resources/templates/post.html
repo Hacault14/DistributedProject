@@ -8,10 +8,12 @@
 <div th:replace="/fragments/header :: header"></div>
 
 <div class="container">
-    <div class="post">
+    <img class="post">
         <h2 th:text="${post.title}">Title</h2>
         <h5 th:text="'Published on ' + ${#dates.format(post.creationDate, 'yyyy MMMM dd')} + ' by ' + ${post.user.username}">Creation date and by whom</h5>
-        <div class="img">Image</div>
+        <div class="img">
+            <img th:src="'data:image/png;base64,' + ${post.imageData}"  width="240" height="240"/>
+        </div>
         <p th:text="${post.body}">body text</p>
         <div class="align-right" sec:authorize="isAuthenticated()" th:if="${isOwner}">
             <a th:href="@{'/editPost/{id}'(id=${post.id})}">

@@ -17,6 +17,7 @@ create table if not exists users
 create table if not exists posts
 (
     id            bigint       not null,
+    image_data    TEXT         not null,
     body          TEXT         not null,
     creation_date timestamp    not null,
     title         varchar(255) not null,

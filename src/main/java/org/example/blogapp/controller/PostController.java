@@ -11,9 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
+import java.util.Base64;
 import java.util.Optional;
 
 @Controller
@@ -42,6 +45,7 @@ public class PostController {
         // if post exist put it in model
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
+
             model.addAttribute("post", post);
             // Check if current logged in user is owner and let view template know to take according actions
             if (authUsername.equals(post.getUser().getUsername())) {
@@ -77,15 +81,28 @@ public class PostController {
 
     @Secured("ROLE_USER")
     @PostMapping("/createNewPost")
-    public String createNewPost(@Valid @ModelAttribute Post post, BindingResult bindingResult, SessionStatus sessionStatus) {
-        System.err.println("POST post: " + post); // for testing debugging purposes
-        if (bindingResult.hasErrors()) {
+    public String createNewPost(@Valid @ModelAttribute Post post, @RequestParam("imageFile") MultipartFile imageFile, BindingResult bindingResult, SessionStatus sessionStatus) {
+        //System.err.println("POST1 post: " + post); // for testing debugging purposes
+        if (bindingResult.hasErrors() || imageFile.isEmpty()) {
             System.err.println("Post did not validate");
             return "postForm";
         }
+
+        try {
+            // Set the image data from the uploaded file to the Post entity
+            String base64Image = Base64.getEncoder().encodeToString(imageFile.getBytes());
+            post.setImageData(base64Image);
+        } catch (IOException e) {
+            //System.err.println("Image Upload Error"); // for testing debugging purposes
+            // Handle exception (e.g., log error, show error message)
+            return "postForm";
+        }
+
+        //System.err.println("POST2 post: " + post); // for testing debugging purposes
+
         // Save post if all good
         this.postService.save(post);
-        System.err.println("SAVE post: " + post); // for testing debugging purposes
+        //System.err.println("SAVE post: " + post); // for testing debugging purposes
         sessionStatus.setComplete();
         return "redirect:/post/" + post.getId();
     }
