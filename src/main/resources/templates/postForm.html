@@ -12,8 +12,9 @@
           th:action="@{'/createNewPost'}"
           th:object="${post}"
           enctype="multipart/form-data"
-          method="post">
-        <h2>Write new blog post</h2>
+          method="post"
+          style="height:400px; padding: 20px;">
+        <h2>Edit blog post</h2>
         <div>
             <label>
                 <div class="alert-red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
@@ -36,12 +37,12 @@
         <div class="float-left">
             <button class="green-btn" type="submit">Send</button>
         </div>
+        <div class="float-right" th:if="${post.id}">
+            <a th:href="@{'/deletePost/{id}'(id=${post.id})}">
+                <button class="green-btn red-btn " type="button">Delete Post</button>
+            </a>
+        </div>
     </form>
-    <div class="float-right" th:if="${post.id}">
-        <a th:href="@{'/deletePost/{id}'(id=${post.id})}">
-            <button class="green-btn red-btn " type="button">Delete Post</button>
-        </a>
-    </div>
 </div>
 
 
