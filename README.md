@@ -15,11 +15,11 @@ cd DistributedProject
 
 To launch the application run this command (uses maven wrapper):
 ```
-$ ./mvnw clean spring-boot:run
+./mvnw clean spring-boot:run
 ```
 Or using your installed maven version:
 ```
-$ mvn clean spring-boot:run
+mvn clean spring-boot:run
 ```
 <b>For interacting with application one can use <i>a browser</i></b>.
 By default, application uses Tomcat which listening on port: 8080,
