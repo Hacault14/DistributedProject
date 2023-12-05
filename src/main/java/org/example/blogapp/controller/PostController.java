@@ -23,6 +23,7 @@ import java.util.Optional;
 @SessionAttributes("post")
 public class PostController {
 
+    // Dependency injection for PostService and UserService
     private final PostService postService;
     private final UserService userService;
 
@@ -32,138 +33,147 @@ public class PostController {
         this.userService = userService;
     }
 
+    // Handles GET requests to view a specific post by ID
     @GetMapping("/post/{id}")
     public String getPost(@PathVariable Long id, Model model, Principal principal) {
 
         String authUsername = "anonymousUser";
         if (principal != null) {
-            authUsername = principal.getName();
+            authUsername = principal.getName(); // Retrieves the logged-in username
         }
 
-        // find post by id
+        // Find post by ID
         Optional<Post> optionalPost = this.postService.getById(id);
-        // if post exist put it in model
+        // If the post exists, add it to the model
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
+            model.addAttribute("post", post); // Adds the post to the model
 
-            model.addAttribute("post", post);
-            // Check if current logged in user is owner and let view template know to take according actions
+            // Checks if the logged-in user is the owner of the post and informs the view
             if (authUsername.equals(post.getUser().getUsername())) {
-                model.addAttribute("isOwner", true);
+                model.addAttribute("isOwner", true); // Indicates that the logged-in user is the owner of the post
             }
-            return "post";
+
+            return "post"; // Returns the view to display the post
         } else {
-            return "404";
+            return "404"; // Returns a 404 error page if the post is not found
         }
     }
 
-    @Secured("ROLE_USER")
+
+    // Handles the creation of a new post view
+    @Secured("ROLE_USER")// Ensures that only users with the ROLE_USER role can access this method
     @GetMapping("/createNewPost")
     public String createNewPost(Model model, Principal principal) {
 
         String authUsername = "anonymousUser";
         if (principal != null) {
-            authUsername = principal.getName();
+            authUsername = principal.getName(); // Retrieves the logged-in username
         }
 
-        // find user by username
+        // Find user by username
         Optional<BlogUser> optionalBlogUser = this.userService.findByUsername(authUsername);
-        // set user to post and put former in model
+        // If the user is found, create a new post and add it to the model
         if (optionalBlogUser.isPresent()) {
             Post post = new Post();
-            post.setUser(optionalBlogUser.get());
-            model.addAttribute("post", post);
-            return "postForm";
+            post.setUser(optionalBlogUser.get()); // Sets the user for the new post
+            model.addAttribute("post", post); // Adds the post to the model
+            return "postForm"; // Returns the view for creating a new post
         } else {
-            return "error";
+            return "error"; // Returns an error page if the user is not found
         }
     }
 
-    @Secured("ROLE_USER")
+    // Handles the creation of a new post after form submission
+    @Secured("ROLE_USER") // Ensures that only users with the ROLE_USER role can access this method
     @PostMapping("/createNewPost")
-    public String createNewPost(@Valid @ModelAttribute Post post,BindingResult bindingResult, @RequestParam("imageFile") MultipartFile imageFile,  SessionStatus sessionStatus) {
-        //System.err.println("POST1 post: " + post); // for testing debugging purposes
-        System.err.println(bindingResult.hasErrors());
+    public String createNewPost(@Valid @ModelAttribute Post post, BindingResult bindingResult,
+                                @RequestParam("imageFile") MultipartFile imageFile, SessionStatus sessionStatus) {
+        // Code to create a new post...
+
+        // Checks for validation errors or empty image file
         if (bindingResult.hasErrors() || imageFile.isEmpty()) {
             System.err.println("Post did not validate");
-            return "postForm";
+            return "postForm"; // Returns the post form to display errors
         }
 
         try {
-            // Set the image data from the uploaded file to the Post entity
+            // Sets the image data from the uploaded file to the Post entity as base64 encoded string
             String base64Image = Base64.getEncoder().encodeToString(imageFile.getBytes());
             post.setImageData(base64Image);
         } catch (IOException e) {
-            //System.err.println("Image Upload Error"); // for testing debugging purposes
-            // Handle exception (e.g., log error, show error message)
-            return "postForm";
+            // Handles exceptions (e.g., logs error, shows error message)
+            return "postForm"; // Returns the post form in case of an exception
         }
 
-        //System.err.println("POST2 post: " + post); // for testing debugging purposes
-
-        // Save post if all good
+        // Saves the post if there are no errors
         this.postService.save(post);
-        //System.err.println("SAVE post: " + post); // for testing debugging purposes
-        sessionStatus.setComplete();
-        return "redirect:/post/" + post.getId();
+        sessionStatus.setComplete(); // Marks the session as complete
+        return "redirect:/post/" + post.getId(); // Redirects to view the newly created post
     }
 
-    @Secured("ROLE_USER")
+    // Handles editing an existing post
+    @Secured("ROLE_USER") // Ensures that only users with the ROLE_USER role can access this method
     @GetMapping("editPost/{id}")
     public String editPost(@PathVariable Long id, Model model, Principal principal) {
+        // Code to edit an existing post...
+
         String authUsername = "anonymousUser";
         if (principal != null) {
-            authUsername = principal.getName();
+            authUsername = principal.getName(); // Retrieves the logged-in username
         }
 
-        // find post by id
+        // Finds the post by its ID
         Optional<Post> optionalPost = this.postService.getById(id);
-        // Check if current logged in user is an owner and so has the right for modifications to happen
+        // Checks if the logged-in user is the owner and has permission to edit the post
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
-            // Check if current logged in user is owner
+            // Checks if the logged-in user is the owner of the post
             if (authUsername.equals(post.getUser().getUsername())) {
-                model.addAttribute("post", post);
-                System.err.println("EDIT post: " + post); // for testing debugging purposes
-                return "postForm";
+                model.addAttribute("post", post); // Adds the post to the model for editing
+                System.err.println("EDIT post: " + post); // For testing and debugging purposes
+                return "postForm"; // Returns the post form for editing
             } else {
-                System.err.println("Current User has no permissions to edit anything on post by id: " + id); // for testing debugging purposes
-                return "403";
+                System.err.println("Current User has no permissions to edit anything on post by id: " + id); // For testing and debugging purposes
+                return "403"; // Returns a forbidden error page
             }
         } else {
-            System.err.println("Could not find a post by id: " + id); // for testing debugging purposes
-            return "error";
+            System.err.println("Could not find a post by id: " + id); // For testing and debugging purposes
+            return "error"; // Returns an error page if the post is not found
         }
     }
 
-    @Secured("ROLE_USER")
+    // Handles deleting an existing post
+    @Secured("ROLE_USER") // Ensures that only users with the ROLE_USER role can access this method
     @GetMapping("/deletePost/{id}")
     public String deletePost(@PathVariable Long id, Principal principal) {
+        // Code to delete an existing post...
 
         String authUsername = "anonymousUser";
         if (principal != null) {
-            authUsername = principal.getName();
+            authUsername = principal.getName(); // Retrieves the logged-in username
         }
 
-        // find post by id
+        // Finds the post by its ID
         Optional<Post> optionalPost = this.postService.getById(id);
-        // Check if current logged in user is an owner and so has the right for modifications to happen
+        // Checks if the logged-in user is the owner and has permission to delete the post
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
-            // Check if current logged in user is owner
+            // Checks if the logged-in user is the owner of the post
             if (authUsername.equals(post.getUser().getUsername())) {
-                // if so then it is safe to remove post from database
+                // Deletes the post from the database
                 this.postService.delete(post);
-                System.err.println("DELETED post: " + post); // for testing debugging purposes
-                return "redirect:/";
+                System.err.println("DELETED post: " + post); // For testing and debugging purposes
+                return "redirect:/"; // Redirects to the home page after successful deletion
             } else {
-                System.err.println("Current User has no permissions to edit anything on post by id: " + id); // for testing debugging purposes
-                return "403";
+                System.err.println("Current User has no permissions to edit anything on post by id: " + id); // For testing and debugging purposes
+                return "403"; // Returns a forbidden error page
             }
         } else {
-            System.err.println("Could not find a post by id: " + id); // for testing debugging purposes
-            return "error";
+            System.err.println("Could not find a post by id: " + id); // For testing and debugging purposes
+            return "error"; // Returns an error page if the post is not found
         }
     }
+
 
 }

@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Controller
 @SessionAttributes("comment")
-public class CommentController {
+public class CommentController { // Controls Comment Functionality
 
     private final PostService postService;
     private final UserService userService;
@@ -33,46 +33,48 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @Secured("ROLE_USER")
+    @Secured("ROLE_USER") // Specifies that only users with the ROLE_USER role can access these methods
     @GetMapping("/comment/{id}")
     public String showComment(@PathVariable Long id, Model model, Principal principal) {
 
         String authUsername = "anonymousUser";
         if (principal != null) {
-            authUsername = principal.getName();
+            authUsername = principal.getName(); // Gets the username of the logged-in user
         }
 
-        // find user by username
+        // Find user by username
         Optional<BlogUser> optionalBlogUser = this.userService.findByUsername(authUsername);
-        // find post by id
+        // Find post by id
         Optional<Post> postOptional = this.postService.getById(id);
-        // if both optionals is present set user and post to a new comment and put former in the model
+
+        // If both user and post are present, create a new comment object and add it to the model
         if (postOptional.isPresent() && optionalBlogUser.isPresent()) {
             Comment comment = new Comment();
             comment.setPost(postOptional.get());
             comment.setUser(optionalBlogUser.get());
-            model.addAttribute("comment", comment);
-            System.err.println("GET comment/{id}: " + comment + "/" + id); // for testing debugging purposes
-            return "commentForm";
+            model.addAttribute("comment", comment); // Add the comment to the model
+            System.err.println("GET comment/{id}: " + comment + "/" + id); // Debugging purposes
+            return "commentForm"; // Return the view for commentForm
         } else {
-            System.err.println("Could not find a post by id: " + id + " or user by logged in username: " + authUsername); // for testing debugging purposes
-            return "error";
+            System.err.println("Could not find a post by id: " + id + " or user by logged in username: " + authUsername);
+            return "error"; // Return error page
         }
     }
 
     @Secured("ROLE_USER")
     @PostMapping("/comment")
     public String validateComment(@Valid @ModelAttribute Comment comment, BindingResult bindingResult, SessionStatus sessionStatus) {
-        System.err.println("POST comment: " + comment); // for testing debugging purposes
+        System.err.println("POST comment: " + comment); // Debugging purposes
+
+        // Check for validation errors in the comment
         if (bindingResult.hasErrors()) {
             System.err.println("Comment did not validate");
-            return "commentForm";
+            return "commentForm"; // Return the comment form to display errors
         } else {
-            this.commentService.save(comment);
-            System.err.println("SAVE comment: " + comment); // for testing debugging purposes
-            sessionStatus.setComplete();
-            return "redirect:/post/" + comment.getPost().getId();
+            this.commentService.save(comment); // Save the validated comment using the comment service
+            System.err.println("SAVE comment: " + comment); // Debugging purposes
+            sessionStatus.setComplete(); // Mark the session complete
+            return "redirect:/post/" + comment.getPost().getId(); // Redirect to the post after comment submission
         }
     }
-
 }
