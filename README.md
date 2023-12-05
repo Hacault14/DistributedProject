@@ -39,3 +39,19 @@ mvn clean spring-boot:run
 <b>For interacting with application one can use <i>a browser</i></b>.
 By default, application uses Tomcat which listening on port: 8080,
 means you can reach it if run on a local machine by hitting URL http://localhost:8080.
+
+
+## Features
+
+### Decentralized Blogging
+The application offers a decentralized platform for content creation and sharing. Users can create their blogs, publish posts, and share them within the network. Each user has control over their content without a centralized authority governing the publishing process.
+
+### User Authentication
+Users can sign up for accounts and log in securely. Authentication mechanisms ensure that each user's data remains private and accessible only to authorized individuals.
+
+### Content Management
+- **Create and Edit Posts**: Users can create new blog posts, edit existing ones, and customize their content with rich text formatting.
+- **Delete Posts**: Capability to remove or archive posts as needed.
+
+### Commenting and Interaction
+Enabling a vibrant community, users can engage with blog posts through comments, reactions, and sharing. This fosters interaction and discussion among users.
