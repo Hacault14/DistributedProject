@@ -9,6 +9,7 @@ This project aims to ...
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
+- [Features](#features)
 
 
 ## Installation
