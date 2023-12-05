@@ -11,6 +11,8 @@ This project aims to ...
 
 ## Installation
 To get started with the app, follow these steps:
+
+
 Open terminal and use git clone command to download the remote GitHub repository to your computer:
 ```
 git clone https://github.com/Hacault14/DistributedProject.git
