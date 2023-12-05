@@ -18,12 +18,13 @@ import java.util.Date;
 @SequenceGenerator(name = "post_seq_gen", sequenceName = "post_seq", initialValue = 10, allocationSize = 1)
 public class Post {
 
-    private static final int MIN_TITLE_LENGTH = 7;
+    public static final int MIN_TITLE_LENGTH = 7;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_seq_gen")
     @Column(name = "id")
     private Long id;
+
 
     @Column(name = "image_data", columnDefinition = "BLOB")
     private String imageData;
@@ -33,7 +34,7 @@ public class Post {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @NotEmpty(message = "Write something for the love of Internet...")
+    @NotEmpty(message = "Please write something")
     @Column(name = "body", columnDefinition = "TEXT", nullable = false)
     private String body;
 

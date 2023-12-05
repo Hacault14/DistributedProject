@@ -81,8 +81,9 @@ public class PostController {
 
     @Secured("ROLE_USER")
     @PostMapping("/createNewPost")
-    public String createNewPost(@Valid @ModelAttribute Post post, @RequestParam("imageFile") MultipartFile imageFile, BindingResult bindingResult, SessionStatus sessionStatus) {
+    public String createNewPost(@Valid @ModelAttribute Post post,BindingResult bindingResult, @RequestParam("imageFile") MultipartFile imageFile,  SessionStatus sessionStatus) {
         //System.err.println("POST1 post: " + post); // for testing debugging purposes
+        System.err.println(bindingResult.hasErrors());
         if (bindingResult.hasErrors() || imageFile.isEmpty()) {
             System.err.println("Post did not validate");
             return "postForm";

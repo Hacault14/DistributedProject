@@ -14,24 +14,27 @@
           enctype="multipart/form-data"
           method="post"
           style="height:400px; padding: 20px;">
-        <h2>Edit blog post</h2>
+        <div th:if="${post.id}">
+            <h2>Edit Blog post</h2>
+        </div>
+        <div th:unless="${post.id}">
+            <h2>Create Blog post</h2>
+        </div>
         <div>
             <label>
-                <div class="alert-red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
-                <input type="text" th:field="*{title}" placeholder="Title"/>
+                <input type="text" th:field="*{title}" placeholder="Title" th:attr="minlength=${post.MIN_TITLE_LENGTH}"  required/>
             </label>
         </div>
         <div>
             <label>
-                <div class="alert-red" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Body Error</div>
-                <textarea th:field="*{body}" placeholder="Write something valuable"></textarea>
+                <textarea th:field="*{body}" placeholder="Write something valuable" required></textarea>
             </label>
         </div>
         </br>
         <div>
             <label>
                 Image Upload:
-                <input type="file" name="imageFile"/>
+                <input type="file" name="imageFile" accept="image/*" required/>
             </label>
         </div>
         <div class="float-left">
