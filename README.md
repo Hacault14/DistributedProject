@@ -95,6 +95,7 @@ Users can sign up for accounts and log in securely. Authentication mechanisms en
 Enabling a vibrant community, users can engage with blog posts through comments. This fosters interaction and discussion among users.
 
 
+
 ## Views
 ### Register
 ![register](https://github.com/Hacault14/DistributedProject/assets/115104826/8e33e5a0-401c-46b9-92dc-91f14924d646)
