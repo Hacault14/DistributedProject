@@ -15,14 +15,14 @@ Welcome to the Decentralized Blog Application developed by Group 1, consisting o
 
 
 ## Installation
-Before proceding with the installation please ensure that you have at at least Java 11 on your machine (if not using docker).  
+Before proceeding with the installation please ensure that you have at least Java 11 on your machine (if not using docker).  
 To get started with the app, follow these steps:
 
-Open terminal and use git clone command to download the remote GitHub repository to your computer:
+Open the terminal and use the git clone command to download the remote GitHub repository to your computer:
 ```
 git clone https://github.com/Hacault14/DistributedProject.git
 ```
-It will create a new folder with same name as GitHub repository "DistributedProject". All the project files and git data will be cloned into it. After cloning complete change directories into that new folder:
+It will create a new folder with the same name as the GitHub repository "DistributedProject". All the project files and git data will be cloned into it. After cloning complete the change directories into that new folder:
 ```
 cd DistributedProject
 ```
@@ -38,7 +38,7 @@ Or using your installed maven version:
 ```
 mvn clean spring-boot:run
 ```  
-By default, the application is listening on port: 8080, which you can reach URL http://localhost:8080. You can can change this in the application.properties file.
+By default, the application is listening on port: 8080, which you can reach URL http://localhost:8080. You can change this in the application.properties file.
 ### Here's how you can run the project via a Jar file:
 To create the jar file use this command (uses maven wrapper):
 ```
@@ -49,13 +49,13 @@ Or using your installed maven version:
 ```
 mvn clean package
 ```  
-This should create a Jar file in the target folder labelled "spring-boot-blog-app-0.0.1-SNAPSHOT.jar", or use the provided [file](/target/spring-boot-blog-app-0.0.1-SNAPSHOT.jar).
+This should create a Jar file in the target folder labeled "spring-boot-blog-app-0.0.1-SNAPSHOT.jar", or use the provided [file](/target/spring-boot-blog-app-0.0.1-SNAPSHOT.jar).
 
 Then in the terminal run the following command in the folder where the jar is contained, and the application should run:
 ```
 java -jar spring-boot-blog-app-0.0.1-SNAPSHOT.jar
 ```
-To access the application use the following URL: http://localhost:8080. You can can change this in the application.properties file.
+To access the application use the following URL: http://localhost:8080. You can change this in the application.properties file.
 
 ### Here's how you can run the project via Docker:
 Use the same process as above to generate a Jar file or use the provided [file](/target/spring-boot-blog-app-0.0.1-SNAPSHOT.jar).
@@ -63,15 +63,15 @@ Using the included docker file, run the following command:
 ```
 docker build -f Dockerfile -t blogApp .
 ```
-Feel free to change the target name or use our own docker file, the process should be similiar. 
+Feel free to change the target name or use our own docker file, the process should be similar. 
 After the container is built, run the docker container using the following command :
 ```
 docker run -p 8080:8080 -t --name blogApp blogApp
 ```
-To access the application use the following URL: http://localhost:8080. You can can change this in the application.properties file, you would then need to change it in Dockerfile as well and in the above command.
+To access the application use the following URL: http://localhost:8080. You can change this in the application.properties file, you would then need to change it in the Dockerfile as well as in the above command.
 
-### To not use local host and instead your your IP (access application over internet).
-To use the application over the internet bar any port forwarding issues, its quite simple.
+### To not use local host and instead your your IP (access application over the internet).
+To use the application over the internet bar any port forwarding issues, it's quite simple.
 In the application.properties file, add the following command, replacing <your_ip> with your device IP:
 ```
 server.address=<your_ip>
