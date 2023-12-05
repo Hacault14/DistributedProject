@@ -7,12 +7,12 @@ import java.util.Optional;
 
 public interface PostService {
 
-    Optional<Post> getById(Long id);
+    Optional<Post> getById(Long id); //function to get post by its ID returns model class
 
-    Collection<Post> getAll();
+    Collection<Post> getAll(); //function to get all posts in the repository .
 
-    Post save(Post post);
+    Post save(Post post); //function to save a post into the DB
 
-    void delete(Post post);
+    void delete(Post post); //function to delete a post
 }
 

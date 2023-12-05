@@ -16,22 +16,22 @@ import java.util.Collections;
 import java.util.Optional;
 
 @Service
-public class BlogUserServiceImpl implements BlogUserService {
+public class UserServiceImpl implements UserService {
 
-    private static final String DEFAULT_ROLE = "ROLE_USER";
-    private final BCryptPasswordEncoder bcryptEncoder;
-    private final BlogUserRepository blogUserRepository;
-    private final AuthorityRepository authorityRepository;
+    private static final String DEFAULT_ROLE = "ROLE_USER"; //variable to store the default role, To add an admin you must manually do it for security.
+    private final BCryptPasswordEncoder bcryptEncoder; //encoder used for encoding password into DB
+    private final BlogUserRepository blogUserRepository; //JPA Repository to store User Models
+    private final AuthorityRepository authorityRepository; //JPA Repository to store role Models
 
     @Autowired
-    public BlogUserServiceImpl(BCryptPasswordEncoder bcryptEncoder, BlogUserRepository blogUserRepository, AuthorityRepository authorityRepository) {
+    public UserServiceImpl(BCryptPasswordEncoder bcryptEncoder, BlogUserRepository blogUserRepository, AuthorityRepository authorityRepository) {
         this.bcryptEncoder = bcryptEncoder;
-        this.blogUserRepository = blogUserRepository;
+        this.blogUserRepository = blogUserRepository; //constructor from implementation
         this.authorityRepository = authorityRepository;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { //function to get a username from the Repository
         Optional<BlogUser> blogUser = blogUserRepository.findByUsername(username);
         if (blogUser.isPresent()) {
             return blogUser.get();
@@ -41,26 +41,25 @@ public class BlogUserServiceImpl implements BlogUserService {
     }
 
     @Override
-    public Optional<BlogUser> findByUsername(String username) {
+    public Optional<BlogUser> findByUsername(String username) { //function to find a username from the Repository
         return blogUserRepository.findByUsername(username);
     }
 
     @Override
-    public BlogUser saveNewBlogUser(BlogUser blogUser) throws RoleNotFoundException {
-        System.err.println("saveNewBlogUser: " + blogUser);  // for testing debugging purposes
+    public BlogUser saveNewUser(BlogUser blogUser) throws RoleNotFoundException {
+        System.err.println("saveNewBlogUser: " + blogUser);
         blogUser.setPassword(this.bcryptEncoder.encode(blogUser.getPassword()));
-        // set account to enabled by default
-        blogUser.setEnabled(true);
-        // Set default Authority/Role to new blog user
-        Optional<Authority> optionalAuthority = this.authorityRepository.findByAuthority(DEFAULT_ROLE);
-        System.err.println("optionalAuthority: " + optionalAuthority);  // for testing debugging purposes
-        if (optionalAuthority.isPresent()) {
-            Authority authority = optionalAuthority.get();
+
+        blogUser.setEnabled(true); // setting attributes in the user model
+
+
+        Optional<Authority> addAuthority = this.authorityRepository.findByAuthority(DEFAULT_ROLE);
+        if (addAuthority.isPresent()) { //add role to user
+            Authority authority = addAuthority.get();
             Collection<Authority> authorities = Collections.singletonList(authority);
             blogUser.setAuthorities(authorities);
-            System.err.println("blogUser after Roles: " + blogUser);  // for testing debugging purposes
-            return this.blogUserRepository.saveAndFlush(blogUser);
-        } else {
+            return this.blogUserRepository.saveAndFlush(blogUser); //saving user
+        } else { //else for if role is not found
             throw new RoleNotFoundException("Default role not found for blog user with username " + blogUser.getUsername());
         }
     }

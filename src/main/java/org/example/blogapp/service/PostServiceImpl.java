@@ -16,25 +16,25 @@ public class PostServiceImpl implements PostService {
     @Autowired
     public PostServiceImpl(PostRepository postRepository) {
         this.postRepository = postRepository;
-    }
+    } //constructor
 
     @Override
-    public Optional<Post> getById(Long id) {
+    public Optional<Post> getById(Long id) { //function to get post by its ID returns model class
         return postRepository.findById(id);
     }
 
     @Override
-    public Collection<Post> getAll() {
+    public Collection<Post> getAll() { //function to get all posts in the repository .
         return postRepository.findAllByOrderByCreationDateDesc();
     }
 
     @Override
-    public Post save(Post post) {
+    public Post save(Post post) { //function to save a post into the DB
         return postRepository.saveAndFlush(post);
     }
 
     @Override
-    public void delete(Post post) {
+    public void delete(Post post) { //function to delete a post
         postRepository.delete(post);
     }
 }

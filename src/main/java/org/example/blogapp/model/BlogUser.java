@@ -13,31 +13,32 @@ import java.util.Collection;
 @Entity
 @Table(name = "users")
 @SequenceGenerator(name = "user_seq_gen", sequenceName = "user_seq", initialValue = 10, allocationSize = 1)
-public class BlogUser implements UserDetails {
+public class BlogUser implements UserDetails { //model class for users
 
     private static final int MIN_USERNAME_LENGTH = 3;
     private static final int MIN_PASSWORD_LENGTH = 8;
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq_gen")
     @Column(name = "id")
-    private Long id;
+    private Long id; //variable for user ID
 
     @Length(min = MIN_USERNAME_LENGTH, message = "Username must be at least " + MIN_USERNAME_LENGTH + " characters long")
-    @NotEmpty(message = "Please enter username")
+    @NotEmpty(message = "Please enter username") //making sure its not null
     @Column(name = "username", nullable = false, unique = true)
-    private String username;
+    private String username; //variable for user name
 
     @JsonIgnore
     @Length(min = MIN_PASSWORD_LENGTH, message = "Password must be at least " + MIN_PASSWORD_LENGTH + " characters long")
-    @NotEmpty(message = "Please enter the password")
+    @NotEmpty(message = "Please enter the password") //making sure its not null
     @Column(name = "password", nullable = false)
-    private String password;
+    private String password; //variable for password
 
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user") //list of POSTS
     private Collection<Post> posts;
 
     @ManyToMany(cascade = CascadeType.REMOVE)
@@ -46,7 +47,7 @@ public class BlogUser implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id")
     )
-    private Collection<Authority> authorities;
+    private Collection<Authority> authorities; //collection of roles
 
     @Override
     public boolean isAccountNonExpired() {
@@ -69,7 +70,7 @@ public class BlogUser implements UserDetails {
     }
 
     @Override
-    public String toString() {
+    public String toString() { //to string method for model class
         return "BlogUser{" +
                 "id=" + id +
                 ", username='" + username + '\'' +

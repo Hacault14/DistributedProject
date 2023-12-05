@@ -2,7 +2,7 @@ package org.example.blogapp.controller;
 
 import org.example.blogapp.model.BlogUser;
 import org.example.blogapp.model.Post;
-import org.example.blogapp.service.BlogUserService;
+import org.example.blogapp.service.UserService;
 import org.example.blogapp.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -24,12 +24,12 @@ import java.util.Optional;
 public class PostController {
 
     private final PostService postService;
-    private final BlogUserService blogUserService;
+    private final UserService userService;
 
     @Autowired
-    public PostController(PostService postService, BlogUserService blogUserService) {
+    public PostController(PostService postService, UserService userService) {
         this.postService = postService;
-        this.blogUserService = blogUserService;
+        this.userService = userService;
     }
 
     @GetMapping("/post/{id}")
@@ -67,7 +67,7 @@ public class PostController {
         }
 
         // find user by username
-        Optional<BlogUser> optionalBlogUser = this.blogUserService.findByUsername(authUsername);
+        Optional<BlogUser> optionalBlogUser = this.userService.findByUsername(authUsername);
         // set user to post and put former in model
         if (optionalBlogUser.isPresent()) {
             Post post = new Post();

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface BlogUserRepository extends JpaRepository<BlogUser, Long> {
+public interface BlogUserRepository extends JpaRepository<BlogUser, Long> { // JPA repo to store users
 
-    Optional<BlogUser> findByUsername(String username);
+    Optional<BlogUser> findByUsername(String username); //function to find a username returns model class
 
 }

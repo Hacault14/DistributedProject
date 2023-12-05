@@ -8,9 +8,9 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Repository
-public interface PostRepository extends JpaRepository<Post, Long> {
+public interface PostRepository extends JpaRepository<Post, Long> { // JPA repo to store posts
 
-    Collection<Post> findAllByOrderByCreationDateDesc();
+    Collection<Post> findAllByOrderByCreationDateDesc(); //function to find all posts
 
-    Optional<Post> findById(Long id);
+    Optional<Post> findById(Long id); //function to find a post by ID
 }

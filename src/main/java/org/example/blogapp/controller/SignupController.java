@@ -1,7 +1,7 @@
 package org.example.blogapp.controller;
 
 import org.example.blogapp.model.BlogUser;
-import org.example.blogapp.service.BlogUserService;
+import org.example.blogapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,11 +22,11 @@ import javax.validation.Valid;
 @SessionAttributes("blogUser")
 public class SignupController {
 
-    private final BlogUserService blogUserService;
+    private final UserService userService;
 
     @Autowired
-    public SignupController(BlogUserService blogUserService) {
-        this.blogUserService = blogUserService;
+    public SignupController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/signup")
@@ -41,7 +41,7 @@ public class SignupController {
     public String registerNewUser(@Valid @ModelAttribute BlogUser blogUser, BindingResult bindingResult, SessionStatus sessionStatus) throws RoleNotFoundException {
         System.err.println("newUser: " + blogUser);  // for testing debugging purposes
         // Check if username is available
-        if (blogUserService.findByUsername(blogUser.getUsername()).isPresent()) {
+        if (userService.findByUsername(blogUser.getUsername()).isPresent()) {
             bindingResult.rejectValue("username", "error.username","Username is already registered try other one or go away");
             System.err.println("Username already taken error message");
         }
@@ -51,7 +51,7 @@ public class SignupController {
             return "registerForm";
         }
         // Persist new blog user
-        this.blogUserService.saveNewBlogUser(blogUser);
+        this.userService.saveNewUser(blogUser);
         // Create Authentication token and login after registering new blog user
         Authentication auth = new UsernamePasswordAuthenticationToken(blogUser, blogUser.getPassword(), blogUser.getAuthorities());
         System.err.println("AuthToken: " + auth);  // for testing debugging purposes

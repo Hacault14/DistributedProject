@@ -8,14 +8,14 @@ import org.springframework.context.annotation.Bean;
 import java.sql.SQLException;
 
 @SpringBootApplication
-public class SpringMvcBlogAppApplication {
+public class BlogApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(SpringMvcBlogAppApplication.class, args);
+    public static void main(String[] args) { //starting springboot.
+        SpringApplication.run(BlogApplication.class, args);
     }
 
     @Bean(initMethod = "start", destroyMethod = "stop")
-    public Server inMemoryH2DatabaseServer() throws SQLException {
+    public Server SQLDatabaseServer() throws SQLException { //creating the database server
         return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9092");
     }
 }

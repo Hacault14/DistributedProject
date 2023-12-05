@@ -3,7 +3,7 @@ package org.example.blogapp.controller;
 import org.example.blogapp.model.BlogUser;
 import org.example.blogapp.model.Comment;
 import org.example.blogapp.model.Post;
-import org.example.blogapp.service.BlogUserService;
+import org.example.blogapp.service.UserService;
 import org.example.blogapp.service.CommentService;
 import org.example.blogapp.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +23,13 @@ import java.util.Optional;
 public class CommentController {
 
     private final PostService postService;
-    private final BlogUserService blogUserService;
+    private final UserService userService;
     private final CommentService commentService;
 
     @Autowired
-    public CommentController(PostService postService, BlogUserService blogUserService, CommentService commentService) {
+    public CommentController(PostService postService, UserService userService, CommentService commentService) {
         this.postService = postService;
-        this.blogUserService = blogUserService;
+        this.userService = userService;
         this.commentService = commentService;
     }
 
@@ -43,7 +43,7 @@ public class CommentController {
         }
 
         // find user by username
-        Optional<BlogUser> optionalBlogUser = this.blogUserService.findByUsername(authUsername);
+        Optional<BlogUser> optionalBlogUser = this.userService.findByUsername(authUsername);
         // find post by id
         Optional<Post> postOptional = this.postService.getById(id);
         // if both optionals is present set user and post to a new comment and put former in the model

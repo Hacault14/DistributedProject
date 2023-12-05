@@ -11,17 +11,17 @@ public class CommentServiceImpl implements CommentService{
     private final CommentRepository commentRepository;
 
     @Autowired
-    public CommentServiceImpl(CommentRepository commentRepository) {
+    public CommentServiceImpl(CommentRepository commentRepository) { //constructor
         this.commentRepository = commentRepository;
     }
 
     @Override
-    public Comment save(Comment comment) {
+    public Comment save(Comment comment) { //function to save a comment in to the DB
         return commentRepository.saveAndFlush(comment);
     }
 
     @Override
-    public void delete(Comment comment) {
+    public void delete(Comment comment) { //function to delete a comment
         commentRepository.delete(comment);
     }
 }
