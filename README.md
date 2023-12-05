@@ -92,3 +92,27 @@ Users can sign up for accounts and log in securely. Authentication mechanisms en
 
 ### Commenting and Interaction
 Enabling a vibrant community, users can engage with blog posts through comments. This fosters interaction and discussion among users.
+
+
+## Views
+### Register
+![register](https://github.com/Hacault14/DistributedProject/assets/115104826/8e33e5a0-401c-46b9-92dc-91f14924d646)
+
+### Login
+![login](https://github.com/Hacault14/DistributedProject/assets/115104826/3a02c7f8-8aad-4953-9899-ad47cc13a5d7)
+
+
+### Homepage
+![homePage](https://github.com/Hacault14/DistributedProject/assets/115104826/549ac1a8-2a00-4391-9f53-e67a2ea0cccc)
+
+### New Post
+![newPost](https://github.com/Hacault14/DistributedProject/assets/115104826/bf3513c4-3cfe-472a-a442-cd689a648281)
+
+### View Post
+![viewPost](https://github.com/Hacault14/DistributedProject/assets/115104826/0a0f0efb-e80d-4dd2-8dab-13d058feb3e5)
+
+### Comment on Post
+![comment](https://github.com/Hacault14/DistributedProject/assets/115104826/75c49554-e65f-49fa-9592-d857c38c8d63)
+
+### Edit Post
+![editPost](https://github.com/Hacault14/DistributedProject/assets/115104826/b805a29a-81ab-412a-b015-8ae6d8072d92)
