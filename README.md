@@ -117,3 +117,8 @@ Enabling a vibrant community, users can engage with blog posts through comments.
 
 ### Edit Post
 ![editPost](https://github.com/Hacault14/DistributedProject/assets/115104826/b805a29a-81ab-412a-b015-8ae6d8072d92)
+
+### Logout
+![image](https://github.com/Hacault14/DistributedProject/assets/115104826/3bce5a6c-bb01-413e-9d09-b22af3ef9ba4)
+
+
