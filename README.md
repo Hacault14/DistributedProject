@@ -5,9 +5,11 @@ Welcome to the Decentralized Blog Application developed by Group 1, consisting o
 ## Overview
 This project aims to ...
 
+
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
+
 
 ## Installation
 To get started with the app, follow these steps:
