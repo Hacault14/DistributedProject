@@ -2,8 +2,10 @@
 Welcome to the Decentralized Blog Application developed by Group 1, consisting of Banujan Sutheswaran, Mithusan Arulampalam, Tal Marianovski, Nathan Hacault, and Micheal Barrett.
 
 
-## Overview
-This project aims to ...
+### Key Objectives
+- **Decentralized Content Creation**: Our application empowers users to create blogs and publish posts without the need for a centralized authority.
+- **User Privacy and Control**: We prioritize user control over their content, ensuring that each user's data remains private and accessible only to authorized individuals.
+- **Engagement and Interaction**: Foster a thriving community by facilitating interaction through comments and discussions on blog posts.
 
 
 ## Table of Contents
@@ -13,8 +15,8 @@ This project aims to ...
 
 
 ## Installation
+Before proceding with the installation please ensure that you have at at least Java 11 on your machine (if not using docker).  
 To get started with the app, follow these steps:
-
 
 Open terminal and use git clone command to download the remote GitHub repository to your computer:
 ```
@@ -26,21 +28,54 @@ cd DistributedProject
 ```
 
 ## Usage
-Here's how you can run the project:
-
-
+### Here's how you can run the project via an IDE or Terminal:
 To launch the application run this command (uses maven wrapper):
 ```
 ./mvnw clean spring-boot:run
+(windows) mvnw.cmd clean spring-boot:run
 ```
 Or using your installed maven version:
 ```
 mvn clean spring-boot:run
+```  
+By default, the application is listening on port: 8080, which you can reach URL http://localhost:8080. You can can change this in the application.properties file.
+### Here's how you can run the project via a Jar file:
+To create the jar file use this command (uses maven wrapper):
 ```
-<b>For interacting with application one can use <i>a browser</i></b>.
-By default, application uses Tomcat which listening on port: 8080,
-means you can reach it if run on a local machine by hitting URL http://localhost:8080.
+./mvnw clean package
+(windows) mvnw.cmd clean package
+```
+Or using your installed maven version:
+```
+mvn clean package
+```  
+This should create a Jar file in the target folder labelled "spring-boot-blog-app-0.0.1-SNAPSHOT.jar", or use the provided file (LINK).
 
+Then in the terminal run the following command in the folder where the jar is contained, and the application should run:
+```
+java -jar spring-boot-blog-app-0.0.1-SNAPSHOT.jar
+```
+To access the application use the following URL: http://localhost:8080. You can can change this in the application.properties file.
+
+### Here's how you can run the project via Docker:
+Use the same process as above to generate a Jar file or use the provided file (LINK).
+Using the included docker file, run the following command:  
+```
+docker build -f Dockerfile -t blogApp .
+```
+Feel free to change the target name or use our own docker file, the process should be similiar. 
+After the container is built, run the docker container using the following command :
+```
+docker run -p 8080:8080 -t --name blogApp blogApp
+```
+To access the application use the following URL: http://localhost:8080. You can can change this in the application.properties file, you would then need to change it in Dockerfile as well and in the above command.
+
+### To not use local host and instead your your IP (access application over internet).
+To use the application over the internet bar any port forwarding issues, its quite simple.
+In the application.properties file, add the following command, replacing <your_ip> with your device IP:
+```
+server.address=<your_ip>
+```
 
 ## Features
 
