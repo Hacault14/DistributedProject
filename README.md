@@ -52,7 +52,8 @@ Users can sign up for accounts and log in securely. Authentication mechanisms en
 
 ### Content Management
 - **Create and Edit Posts**: Users can create new blog posts, edit existing ones, and customize their content with rich text formatting.
+- **Attach Photos to Posts**: Users can attach photos to posts to enhance their posts
 - **Delete Posts**: Capability to remove or archive posts as needed.
 
 ### Commenting and Interaction
-Enabling a vibrant community, users can engage with blog posts through comments, reactions, and sharing. This fosters interaction and discussion among users.
+Enabling a vibrant community, users can engage with blog posts through comments. This fosters interaction and discussion among users.
