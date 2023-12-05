@@ -12,6 +12,7 @@ Welcome to the Decentralized Blog Application developed by Group 1, consisting o
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
+- [Views](#views)
 
 
 ## Installation
