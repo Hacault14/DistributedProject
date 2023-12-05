@@ -7,7 +7,7 @@ This project aims to ...
 
 ## Table of Contents
 - [Installation](#installation)
-- - [Usage](#usage)
+- [Usage](#usage)
 
 ## Installation
 To get started with the app, follow these steps:
