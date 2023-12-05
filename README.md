@@ -22,6 +22,8 @@ cd DistributedProject
 
 ## Usage
 Here's how you can run the project:
+
+
 To launch the application run this command (uses maven wrapper):
 ```
 ./mvnw clean spring-boot:run
